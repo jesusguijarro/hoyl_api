@@ -37,12 +37,14 @@ RUN npm install -g pm2
 
 COPY --from=build /opt .
 
-RUN yarn install --pure-lockfile --production
+##RUN yarn install --pure-lockfile --production
 
 COPY processes.config.js .
 
 EXPOSE 8081
 ENV PORT 8081
 ENV NODE_ENV production
+
+ENV DATABASE_URL=postgres://postgres:postgres@db:5432/mydb
 
 CMD ["pm2-runtime", "start", "processes.config.js", "--env", "production"]
