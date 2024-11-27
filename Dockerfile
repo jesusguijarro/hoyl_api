@@ -59,6 +59,6 @@ ENV NODE_ENV production
 ENV DATABASE_URL=postgres://postgres:postgres@db:5432/mydb
 
 # Run Prisma migrations before starting the application
-RUN yarn prisma migrate deploy
+#RUN yarn prisma migrate deploy
 
 CMD [ "yarn", "start" ]
