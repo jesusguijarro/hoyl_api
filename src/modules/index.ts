@@ -3,5 +3,6 @@
  */
 
 export * from "./answer/answer.resolver";
+export * from "./auth/auth.resolver";
 export * from "./player/player.resolver";
 export * from "./user/user.resolver";
