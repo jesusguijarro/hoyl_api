@@ -22,16 +22,16 @@ model Player {
   username  String @unique
   appearance Appearance
   answer    Answer[]
-}
+}   
 
 model Answer {
   id        Int @id @default(autoincrement())
   question  Int
   answer    Int
-  playerId  Int
-  player    Player @relation(fields: [playerId], references: [id])
+  playerUsername  String
+  player    Player @relation(fields: [playerUsername], references: [username])
 
-  @@unique([playerId, question])
+  @@unique([playerUsername, question])
 }
 
 enum Appearance {

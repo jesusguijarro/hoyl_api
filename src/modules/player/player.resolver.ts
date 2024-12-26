@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { ResolverService } from "@tsed/typegraphql";
 import { AnswerRepository } from "src/repositories";
-import { Arg, FieldResolver, ID, Mutation, Query, Root } from "type-graphql";
+import { Arg, FieldResolver, Mutation, Query, Root } from "type-graphql";
 import { Answer } from "../answer/models/answer.model";
 import { CreatePlayerInput } from "./inputs/player.input";
 import { Player } from "./models/player";
@@ -18,8 +18,8 @@ export class PlayerResolver {
   @Query(() => Player, {
     description: "Query para obtener un jugador."
   })
-  player(@Arg("id", () => ID) id: number) {
-    return this.playerRepository.get(id);
+  player(@Arg("username", () => String) username: string) {
+    return this.playerRepository.get(username);
   }
 
   @Query(() => [Player], { description: "Query para obtener todos los jugadores." })
@@ -36,6 +36,6 @@ export class PlayerResolver {
 
   @FieldResolver(() => [Answer], { description: "" })
   answers(@Root() player: Player) {
-    return this.playerRepository.answers(player.id);
+    return this.playerRepository.answers(player.username);
   }
 }

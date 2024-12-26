@@ -18,6 +18,7 @@ export class AnswerRepository {
   }
 
   create(input: Prisma.AnswerCreateInput) {
+    console.log("create answer called -------------------------------------------------------------");
     return this.prisma.answer.create({
       data: input
     });
@@ -31,14 +32,14 @@ export class AnswerRepository {
     });
   }
 
-  playerAnswers(id: number) {
-    return this.prisma.answer.findMany({
-      where: {
-        playerId: Number(id)
-      },
-      orderBy: {
-        question: "asc"
-      }
-    });
-  }
+  // playerAnswers(username: string) {
+  //   return this.prisma.answer.findMany({
+  //     where: {
+  //       playerUsername: Number(username)
+  //     },
+  //     orderBy: {
+  //       question: "asc"
+  //     }
+  //   });
+  // }
 }

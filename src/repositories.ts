@@ -3,5 +3,6 @@
  */
 
 export * from "./modules/answer/repositories/answer.repository";
+export * from "./modules/auth/repositories/auth.repository";
 export * from "./modules/player/repositories/player.repository";
 export * from "./modules/user/repositories/user.repository";

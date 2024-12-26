@@ -5,10 +5,10 @@ import { Injectable } from "@tsed/di";
 export class PlayerRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
-  get(id: number) {
+  get(username: string) {
     return this.prisma.player.findUnique({
       where: {
-        id: Number(id)
+        username
       }
     });
   }
@@ -18,7 +18,7 @@ export class PlayerRepository {
   }
 
   create(input: Prisma.PlayerCreateInput) {
-    console.log("---------*************");
+    console.log("create player called -------------------------------------------------------------");
     return this.prisma.player.create({
       data: input
     });
@@ -32,10 +32,10 @@ export class PlayerRepository {
     });
   }
 
-  answers(id: number) {
+  answers(username: string) {
     return this.prisma.answer.findMany({
       where: {
-        playerId: id
+        playerUsername: username
       },
       orderBy: {
         question: "asc"

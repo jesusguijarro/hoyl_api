@@ -1,5 +1,5 @@
 import { IsInt } from "class-validator";
-import { Field, ID, InputType, Int } from "type-graphql";
+import { Field, InputType, Int } from "type-graphql";
 
 @InputType({ description: "Inputs para registrar una respuesta." })
 export class CreateAnswerInput {
@@ -11,6 +11,6 @@ export class CreateAnswerInput {
   @IsInt()
   answer: number;
 
-  @Field(() => ID, { description: "Id del jugador." })
-  playerId: number;
+  @Field(() => String, { description: "Username del jugador." })
+  playerUsername: string;
 }

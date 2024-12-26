@@ -25,7 +25,8 @@ export class AnswerResolver {
       answer: create.answer,
       player: {
         connect: {
-          id: Number(create.playerId) // Use the player relation and connect by id
+          //id: Number(create.playerUsername) // Use the player relation and connect by id
+          username: create.playerUsername
         }
       }
     });

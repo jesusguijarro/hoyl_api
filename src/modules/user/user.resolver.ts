@@ -5,27 +5,27 @@ import { Arg, Authorized, Ctx, ID, Mutation, Query } from "type-graphql";
 import { UpdateUserInput } from "./inputs/update.input";
 import { CreateUserInput } from "./inputs/user.input";
 import { ToDoContext } from "./models/context.model";
-import { User } from "./models/user";
+import { User } from "./models/user.model";
 import { UserRepository } from "./repositories/user.repository";
 
 @ResolverService(User)
 export class UserResolver {
   constructor(private readonly userRepository: UserRepository) {}
 
-  @Authorized()
-  @Query((returns) => User)
-  user(@Arg("id", (type) => ID) id: number) {
+  //@Authorized()
+  @Query(() => User, { description: "Query para obtener un usuario." })
+  user(@Arg("id", () => ID) id: number) {
     return this.userRepository.getUser(id);
   }
 
   @Authorized()
-  @Query((returns) => [User])
+  @Query(() => [User], { description: "Query para obtener todos los usuarios." })
   users() {
     return this.userRepository.getAll();
   }
 
-  @Authorized()
-  @Query((returns) => User)
+  //@Authorized()
+  @Query(() => User, { description: "Query para obtener el usuario actualmente loggeado." })
   currentUser(@Ctx() context: ToDoContext) {
     if (context.user) {
       return this.userRepository.getUser(context.user?.id);
@@ -33,25 +33,24 @@ export class UserResolver {
     throw new Forbidden("Usuario no encontrado.");
   }
 
-  //Crear un usuario
-  @Mutation((returns) => User, {
-    description: "Mutación para crear un nuevo ususario."
+  @Mutation(() => User, {
+    description: "Mutación para crear un nuevo usuario."
   })
-  registerUser(@Arg("create", (type) => CreateUserInput) create: CreateUserInput) {
+  registerUser(@Arg("create", () => CreateUserInput) create: CreateUserInput) {
     return this.userRepository.createUser({
       ...create
     });
   }
 
-  @Authorized()
-  @Mutation((returns) => User, { description: "Mutación para elminar un usuario" })
-  deleteUser(@Arg("delete", (type) => ID) id: number) {
+  //@Authorized()
+  @Mutation(() => User, { description: "Mutación para eliminar un usuario" })
+  deleteUser(@Arg("delete", () => ID) id: number) {
     return this.userRepository.deleteUser(id);
   }
 
-  @Authorized()
-  @Mutation((returns) => User, { description: "Mutación para actualizar un usuario" })
-  updateUser(@Arg("update", (type) => UpdateUserInput) update: UpdateUserInput, @Ctx() context: ToDoContext) {
+  //@Authorized()
+  @Mutation(() => User, { description: "Mutación para actualizar un usuario" })
+  updateUser(@Arg("update", () => UpdateUserInput) update: UpdateUserInput, @Ctx() context: ToDoContext) {
     if (context.user) {
       return this.userRepository.updateUser(context.user?.id, update);
     }

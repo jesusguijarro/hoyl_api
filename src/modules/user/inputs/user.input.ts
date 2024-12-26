@@ -23,6 +23,6 @@ export class CreateUserInput {
   email: string;
 
   @Field(() => String, { description: "Contraseña del usuario." })
-  @MaxLength(15)
+  @MaxLength(20)
   password: string;
 }

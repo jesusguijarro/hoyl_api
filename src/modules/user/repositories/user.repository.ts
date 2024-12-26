@@ -1,5 +1,6 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { Injectable } from "@tsed/di";
+import bcrypt from "bcryptjs";
 
 @Injectable()
 export class UserRepository {
@@ -19,9 +20,11 @@ export class UserRepository {
   }
 
   async createUser(input: Prisma.UserCreateInput) {
+    const salt = await bcrypt.genSalt(8);
     return this.prisma.user.create({
       data: {
-        ...input
+        ...input,
+        password: await bcrypt.hash(input.password, salt)
       }
     });
   }

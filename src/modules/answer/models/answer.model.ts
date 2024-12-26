@@ -11,6 +11,6 @@ export class Answer {
   @Field(() => Int, { description: "Respuesta a la pregunta." })
   answer: number;
 
-  @Field(() => ID, { description: "Id del jugador." })
-  playerId: number;
+  @Field(() => String, { description: "Username del jugador." })
+  playerUsername: string;
 }
