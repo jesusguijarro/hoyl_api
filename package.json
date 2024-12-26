@@ -2,6 +2,9 @@
   "name": "hoyl-api",
   "version": "1.0.0",
   "description": "",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "scripts": {
     "start": "yarn run barrels && npx tsnd --inspect --exit-child --cls --ignore-watch node_modules --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
     "start:prod": "cross-env NODE_ENV=production node dist/index.js",
@@ -70,6 +73,7 @@
     "@tsed/cli-plugin-passport": "4.2.7",
     "@tsed/cli-plugin-typegraphql": "4.2.7",
     "@types/bcrypt": "^5.0.0",
+    "@types/bcryptjs": "^2.4.6",
     "@types/compression": "^1.7.2",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.13",
