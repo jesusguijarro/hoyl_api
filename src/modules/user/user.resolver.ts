@@ -1,7 +1,7 @@
 //import { email, string } from "@tsed/schema/lib/types/utils/from";
 import { Forbidden } from "@tsed/exceptions";
 import { ResolverService } from "@tsed/typegraphql";
-import { Arg, Authorized, Ctx, ID, Mutation, Query } from "type-graphql";
+import { Arg, Ctx, ID, Mutation, Query } from "type-graphql";
 import { UpdateUserInput } from "./inputs/update.input";
 import { CreateUserInput } from "./inputs/user.input";
 import { ToDoContext } from "./models/context.model";
@@ -18,7 +18,7 @@ export class UserResolver {
     return this.userRepository.getUser(id);
   }
 
-  @Authorized()
+  //@Authorized()
   @Query(() => [User], { description: "Query para obtener todos los usuarios." })
   users() {
     return this.userRepository.getAll();
