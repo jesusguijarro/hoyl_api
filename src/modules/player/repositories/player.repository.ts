@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Player, Prisma, PrismaClient } from "@prisma/client";
 import { Injectable } from "@tsed/di";
 import { AnswerRepository } from "src/repositories";
 
@@ -45,10 +45,18 @@ export class PlayerRepository {
   //   });
   // }
 
-  async deleteManyPlayerAndAnswers(usernames: string[]) {
+  async deleteManyPlayerAndAnswers(usernames: string[]): Promise<Player[]> {
     console.log("usernames", usernames);
+
     return this.prisma.$transaction(async (prisma) => {
-      // Delete all answers for the players
+      const playersToDelete = await prisma.player.findMany({
+        where: {
+          username: {
+            in: usernames
+          }
+        }
+      });
+
       await prisma.answer.deleteMany({
         where: {
           playerUsername: {
@@ -57,7 +65,6 @@ export class PlayerRepository {
         }
       });
 
-      // Delete the players
       await prisma.player.deleteMany({
         where: {
           username: {
@@ -65,6 +72,8 @@ export class PlayerRepository {
           }
         }
       });
+
+      return playersToDelete;
     });
   }
 

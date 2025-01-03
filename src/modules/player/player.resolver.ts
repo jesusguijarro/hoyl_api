@@ -39,14 +39,9 @@ export class PlayerResolver {
     return this.playerRepository.answers(player.username);
   }
 
-  @Mutation(() => Boolean, { description: "Mutación para elminar uno o más jugadores, y sus respuestas relacionadas." })
-  async deleteManyPlayerAndAnswers(@Arg("usernames", () => [String]) usernames: string[]): Promise<boolean> {
-    try {
-      await this.playerRepository.deleteManyPlayerAndAnswers(usernames);
-      return true;
-    } catch (error) {
-      console.error("Error deleting players and answers.", error);
-      throw new Error("No se pudieron eliminar los jugadores y sus respuestas relacionadas.");
-    }
+  @Mutation(() => [Player], { description: "Mutación para elminar uno o más jugadores, y sus respuestas relacionadas." })
+  deleteManyPlayerAndAnswers(@Arg("usernames", () => [String]) usernames: string[]) {
+    //await this.playerRepository.deleteManyPlayerAndAnswers(usernames);
+    return this.playerRepository.deleteManyPlayerAndAnswers(usernames);
   }
 }
